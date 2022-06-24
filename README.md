@@ -1,73 +1,82 @@
-# TensorFlow Lite Pose Estimation Android Demo
-
-### Overview
-This is an app that continuously detects the body parts in the frames seen by
-your device's camera. These instructions walk you through building and running
-the demo on an Android device. Camera captures are discarded immediately after
-use, nothing is stored or saved.
-
-The app demonstrates how to use 4 models:
-
-* Single pose models: The model can estimate the pose of only one person in the
-input image. If the input image contains multiple persons, the detection result
-can be largely incorrect.
-   * PoseNet
-   * MoveNet Lightning
-   * MoveNet Thunder
-* Multi pose models: The model can estimate pose of multiple persons in the
-input image.
-   * MoveNet MultiPose: Support up to 6 persons.
-
-See this [blog post](https://blog.tensorflow.org/2021/05/next-generation-pose-detection-with-movenet-and-tensorflowjs.html)
-for a comparison between these models.
-
-![Demo Image](posenetimage.png)
-
-## Build the demo using Android Studio
-
-### Prerequisites
-
-* If you don't have it already, install **[Android Studio](
- https://developer.android.com/studio/index.html)** 4.2 or
- above, following the instructions on the website.
-
-* Android device and Android development environment with minimum API 21.
-
-### Building
-* Open Android Studio, and from the `Welcome` screen, select
-`Open an existing Android Studio project`.
-
-* From the `Open File or Project` window that appears, navigate to and select
- the `lite/examples/pose_estimation/android` directory from wherever you
- cloned the `tensorflow/examples` GitHub repo. Click `OK`.
-
-* If it asks you to do a `Gradle Sync`, click `OK`.
-
-* You may also need to install various platforms and tools, if you get errors
- like `Failed to find target with hash string 'android-21'` and similar. Click
- the `Run` button (the green arrow) or select `Run` > `Run 'android'` from the
- top menu. You may need to rebuild the project using `Build` > `Rebuild Project`.
-
-* If it asks you to use `Instant Run`, click `Proceed Without Instant Run`.
-
-* Also, you need to have an Android device plugged in with developer options
- enabled at this point. See **[here](
- https://developer.android.com/studio/run/device)** for more details
- on setting up developer devices.
+# Bowling Sam
 
 
-### Model used
-Downloading, extraction and placement in assets folder has been managed
- automatically by `download.gradle`.
+## 프로젝트 소개
 
-If you explicitly want to download the model, you can download it from here:
+<p align="justify">
+프로젝트 개요/동기
+</p>
+본 프로젝트는 자세 인식 프로그램과 인공지능 분석 시스템을 이용하여 볼링을 코치해 주는 서비스입니다. 다양한 사람들이 환경에 구애받지 않고 전문가의 도움 없이 혼자서 쉽게 볼링에 입문할 수 있도록 합니다. 실시간으로 사용자의 자세를 분석하여 정확성을 알려주고 피드백을 제공하여 상호 작용합니다. 이를 통해 다양한 사람이 어렵게 느끼는 스포츠를 쉽고 정확하게 배울 수 있도록 도울 것입니다. 본 프로젝트를 통해 볼링에 입문하는 사람이 늘어나 볼링 시장의 성장을 기대합니다.
+</p>
 
-* [Posenet](https://storage.googleapis.com/download.tensorflow.org/models/tflite/posenet_mobilenet_v1_100_257x257_multi_kpt_stripped.tflite)
-* [Movenet Lightning](https://tfhub.dev/google/movenet/singlepose/lightning/)
-* [Movenet Thunder](https://tfhub.dev/google/movenet/singlepose/thunder/)
-* [Movenet MultiPose](https://tfhub.dev/google/movenet/multipose/lightning/)
+<br>
 
-### Additional Note
-_Please do not delete the assets folder content_. If you explicitly deleted the
- files, then please choose `Build` > `Rebuild` from menu to re-download the
- deleted model files into assets folder.
+## 기술 스택
+
+
+
+<br>
+
+## 구현 기능
+
+### 1. 로그인/회원가입 기능
+- 계정이 만들어졌다면 이메일과 비밀번호를 입력해 로그인하고, 계정이 없다면 회원가입 또는 구글 계정을 통해 로그인합니다. 
+- FireBase DB를 이용하여 사용자의 데이터들을 저장하였고 기본적으로 users collection 데이터를 이용합니다. Authentication에서 유저 로그인 정보를 관리하는데 해당 부분에서 이메일을 가져와 userID에 저장하고, 생성된 고유 uid 값을 uid에 저장합니다. 그 외 볼 사이즈나 닉네임과 같은 정보는 유저 설정 화면에서 변경하거나 초기 회원가입 시 기입할 수 있습니다.
+
+### 2. 사용자의 자세 인식
+- 사용자의 자세를 모션 캡쳐 기능을 통하여 실시간으로 파악하고 AI가 신체 부위별로 올바른 자세와 비교하여 차이가 얼마나 나는지 화면에 보여줍니다.
+- 자세 모델링 학습 프로그램 (MoveNet): 주요 신체 관절의 위치를 예측하여 이미지 또는 비디오에서 사람의 포즈를 인식하기 위해 사용합니다. 
+- 사람의 주요 신체 관절 17개의 위치를 예측하여 좌표값을 얻었고 그중에서 한 사람의 포즈만 예측하면 됨으로 single pose estimation 알고리즘을 사용합니다.
+
+### 3. 자세 평가 과정과 피드백
+- 사용자의 자세와 올바른 자세를 비교하여 평가합니다. 
+- 자세를 평가하는데 PCP와 관절의 각도를 계산하여 식별하는 2가지 방법이 있습니다. PCP 방법을 이용하여 관절의 좌표 반경을 이용한 자세 평가는 카메라 위치 및 각도, 방향 등이 매번 바뀌므로 인식되는 사람의 크기가 일정하지 않아 올바른 자세를 식별하기 적합하지 않다고 판단하여 관절의 각도 측정을 통한 자세 평가를 기준으로 진행했습니다.
+
+### 4. 정확도 측정
+- 학습된 모델의 좌표(관절의 위치) 범위에 사용자의 자세가 포함되는지, 또는 관절의 각도가 올바른 각도인지에 따라 정확도를 나누어 점수를 계산합니다. 
+- 구간 별로 자세를 취할 때, 정확도가 0.9 ~ 1 이면 정확한 자세로 인식합니다. 정확도가 0.9 미만인 경우 보충해야 하는 자세로 인식합니다.
+
+### 5. 카메라 위치 선정
+- 카메라를 사용자의 뒤쪽에 설치한다고 가정하면 팔과 다리가 겹쳐지는 부분은 인식이 잘 안되기 때문에 정확도가 떨어집니다. 그래서 카메라 위치를 사용자의 옆에서 찍기로 결정했습니다. 좌표가 아닌 각도로 정확도를 비교하기 때문에 카메라의 정중앙에 위치할 필요는 없고 사용자의 모든 신체 부위가 카메라 화면에 모두 나온다면 정확한 측정이 가능합니다. 
+
+
+### 6. 내/외부 데이터베이스 (Firebase) 연결 및 활용
+- 기록 화면의 각 목록의 아이템들은 사용자 기기의 DCIM 폴더에 저장 되어 있는 영상의 이름과 6가지 자세에 대한 평균 점수를 나타냅니다. 각 아이템을 누를 경우 동영상과 함께 점수, 올바른 자세와의 각도차이, 피드백을 화면에 보여줍니다.
+
+<br>
+
+## AI 자세 모델링 프로그램 선정 및 분석
+
+### 1. MoveNet 선택 배경
+- 초기에는 Teachable Machine에서 자세를 모델링 하려 했으나 자세 인식 학습은 Tensorflow Lite 형식을 지원하지 않아 제외하였습니다. 이후 OpenPose 소스와 MoveNet 소스 중 고민하였는데 OpenPose는 정확도가 높지만 크기가 커 모바일 환경에서는 적합하지 않다고 판단하여, MoveNet 기반으로 Keras로 자세를 모델링 하여 구현하기로 결정했습니다.
+
+### 2. MoveNet 알고리즘
+- 2D pose estimation으로 구현할 것이고, 한 사람의 자세를 추정할 것이므로 single person human pose estimation 알고리즘을 사용합니다.
+- single pose model이므로 메모리 사용량이 적고, 3D 이미지에 대해서 큰 변화 없이 적용 가능한 Direct Regression 방식으로 이미지를 나타냅니다.
+- ResNet 모델과 MobileNet 모델 중 Android 환경에 적합한 MobileNet 모델을 사용합니다.
+
+
+
+
+<bt>
+
+
+## 배운 점 & 아쉬운 점
+
+<p align="justify">
+- 사용자들이 편하고 쉽게 원하는 사람들과 팀을 구성할 수 있으면 좋겠다는 생각으로 시작된 'TeamOne' 프로젝트를 진행하면서 많은 경험들을 할 수 있었습니다. Github을 통한 협업 방법을 자연스레 익힐 수 있었고, 프론트엔드와 백엔드간의 통신 방법에 대해서도 익힐 수 있었습니다. 또한 REST API 엔드포인트를 백엔드 기준으로 먼저 제작하다보니 프론트와 맞춰가는 과정에서 대규모 수정이 필요했습니다. 그래서 프론트 개발과 엔드포인트 개발, 비즈니스 로직 개발을 동시에 진행하는게 좋다고 느꼈습니다. 이외에도 처음 접하는 다양한 라이브러리들과 디자인 패턴들을 사용함으로써 개발과 설계에 대한 경험을 얻을 수 잇었습니다.
+ 상세 설계 및 구현 단계에 이르러 구상했던 방향과 다른 점을 느끼고 변경된 부분이 생겼습니다. 이러한 경험을 통해 설계의 중요성을 다시 한번 깨달을 수 있었습니다.. 또한 MVP패턴을 도입함으로써 좋은 디자인 패턴을 사용해야 하는 이유에 대해서도 알 수 있는 시간이었습니다. 아쉬운 점도 있었지만 팀원들끼리 서로 협력하면서 최선을 다하여 기능들을 구현했기에 많은 경험들을 할 수 있었습니다. 향후에는 안드로이드 뿐만 아니라 iOS버젼의 'TeamOne'을 개발해 완벽하지 못했던 기능들을 수정하여 앱스토어에 배포할 계획입니다.
+</p>
+
+<br>
+
+## 라이센스
+
+MIT &copy; [NoHack](mailto:lbjp114@gmail.com)
+
+<!-- Stack Icon Refernces -->
+
+[js]: /images/stack/javascript.svg
+[ts]: /images/stack/typescript.svg
+[react]: /images/stack/react.svg
+[node]: /images/stack/node.svg
