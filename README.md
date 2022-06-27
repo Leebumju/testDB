@@ -67,6 +67,26 @@
 <bt>
 
 -------------
+
+## 실제 구현 화면
+
+<img width="646" alt="스크린샷 2022-06-27 오후 7 31 48" src="https://user-images.githubusercontent.com/69973158/175922233-b243b6b4-c31f-4a63-96dc-2711cd2013eb.png">
+
+<img width="632" alt="스크린샷 2022-06-27 오후 7 31 59" src="https://user-images.githubusercontent.com/69973158/175922254-81cd48c1-395f-4990-86ad-9d33f6709897.png">
+
+<img width="471" alt="스크린샷 2022-06-27 오후 7 32 09" src="https://user-images.githubusercontent.com/69973158/175922286-69cc8535-201e-4c24-96df-3ea1a1164f7f.png">
+
+
+<img width="473" alt="스크린샷 2022-06-27 오후 7 32 21" src="https://user-images.githubusercontent.com/69973158/175922309-55562dc0-e8b5-4f5e-8593-b96f508093a7.png">
+
+<img width="462" alt="스크린샷 2022-06-27 오후 7 32 30" src="https://user-images.githubusercontent.com/69973158/175922338-ec2d80d2-4ea3-4207-9688-5f65b1677336.png">
+
+<img width="631" alt="스크린샷 2022-06-27 오후 7 32 39" src="https://user-images.githubusercontent.com/69973158/175922364-0a7c7818-a85e-4ae3-be27-cb68f1e74efa.png">
+
+
+
+
+-------------
  
 ## 배운 점 & 아쉬운 점
 
