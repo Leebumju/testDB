@@ -100,9 +100,6 @@
 
 ------------- 
  
-## 라이센스
-
-MIT &copy; [NoHack](mailto:lbjp114@gmail.com)
 
 <!-- Stack Icon Refernces -->
 
